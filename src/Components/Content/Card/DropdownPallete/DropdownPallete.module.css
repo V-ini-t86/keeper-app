@@ -1,0 +1,24 @@
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  width: 150px;
+  height: 100px;
+  padding: 10px;
+}
+.dropdown > button {
+  padding: 0;
+}
+
+.dropdownContent > button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 2px;
+}
+.dropdown:hover .dropdownContent {
+  display: block;
+}

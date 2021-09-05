@@ -1,0 +1,59 @@
+.ul {
+  list-style: none;
+  padding: 0;
+}
+.card {
+  margin-top: 30px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 200px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition-duration: 300ms;
+}
+.card {
+  height: auto;
+}
+.card:hover {
+  box-shadow: 0px 1px 2px 2px rgb(0 0 0 / 10%), 0px 2px 2px 2px rgb(0 0 0 / 7%);
+}
+
+.hide {
+  position: relative;
+  display: none;
+}
+.hdiv {
+  height: 55px;
+}
+.card:hover .hdiv {
+  display: none;
+}
+.card:hover .hide {
+  transition-duration: 300ms;
+  display: block;
+}
+.svg {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.svg > button {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+}
+.svg > button:hover {
+  background-color: #f1f3f4;
+  border-radius: 50%;
+}
+.check {
+  position: relative;
+  right: 18px;
+  bottom: 20px;
+  padding: 0;
+  margin: 0;
+}
+.title {
+  position: relative;
+  bottom: 20px;
+}

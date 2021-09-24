@@ -68,3 +68,11 @@ button > svg {
   color: gray;
   /* outline: none; */
 }
+.btn-notes {
+  float: right;
+}
+.finalBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

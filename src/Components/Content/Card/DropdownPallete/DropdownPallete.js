@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { PaletteOutlined } from "@material-ui/icons";
 import classes from "./DropdownPallete.module.css";
 
@@ -21,7 +21,7 @@ function DropdownPallete({ setColors }) {
   return (
     <div className={classes.dropdown}>
       <button>
-        <PaletteOutlined fontSize="small" />
+        <PaletteOutlined style={{ fill: "black" }} fontSize="small" />
       </button>
       <div className={classes.dropdownContent}>
         {colors.map((clrs) => {

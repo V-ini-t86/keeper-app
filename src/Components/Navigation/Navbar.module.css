@@ -10,8 +10,14 @@
 
 .menuBrand {
   display: flex;
+  align-items: center;
   padding: 20px;
   margin-right: 80px;
+}
+.menuBrand > h3 {
+  font-size: 1.7rem;
+  margin-left: 20px;
+  font-weight: 400;
 }
 
 .menuBrand > button {

@@ -12,5 +12,16 @@
 }
 
 .button > img {
-  width: 20px;
+  width: 25px;
+  border-radius: 50%;
+  height: 25px;
+}
+.navBtn {
+  margin-right: 20px;
+  width: 40px;
+  height: 40px;
+}
+.navBtn:hover {
+  background-color: #f1f3f4;
+  border-radius: 50%;
 }

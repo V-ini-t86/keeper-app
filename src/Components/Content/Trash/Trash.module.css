@@ -1,0 +1,7 @@
+.trash {
+  display: flex;
+  flex-wrap: wrap;
+}
+.trashCard {
+  margin: 10px;
+}

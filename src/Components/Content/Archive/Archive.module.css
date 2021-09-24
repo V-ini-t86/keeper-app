@@ -1,0 +1,7 @@
+.archive {
+  display: flex;
+  flex-wrap: wrap;
+}
+.archiveCard {
+  margin: 10px;
+}

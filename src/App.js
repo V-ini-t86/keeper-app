@@ -3,13 +3,16 @@ import Navbar from "./Components/Navigation/Navbar";
 import SideBar from "./Components/SideBar/SideBar";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
+import AuthProvider from "./AuthContext";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar />
-        <hr style={{ borderColor: "#f1f3f4" }} />
+        <AuthProvider>
+          <Navbar />
+        </AuthProvider>
+        <hr style={{ border: "5px solid black" }} />
         <div className="body">
           <SideBar />
           <Content />

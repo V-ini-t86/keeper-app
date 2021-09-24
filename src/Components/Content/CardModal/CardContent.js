@@ -8,6 +8,9 @@ const MODAL_STYLES = {
   padding: "30px",
   backgroundColor: "#fff",
   transform: "translate(-50%,-50%)",
+  minWidth: "400px",
+  height: "auto",
+  borderRadius: "7px",
 };
 const OVERLAY_STYLES = {
   position: "fixed",
@@ -15,7 +18,8 @@ const OVERLAY_STYLES = {
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: "rgba(0,0,0,0.7)",
+  backgroundColor: "#202124",
+  opacity: 0.6,
   zIndex: 1000,
 };
 function CardContent({ children, isOpen }) {

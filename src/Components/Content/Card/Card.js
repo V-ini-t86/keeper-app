@@ -1,89 +1,149 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
-  AddAlertOutlined,
-  ArchiveOutlined,
   AspectRatio,
   CheckCircle,
+  DeleteRounded,
   ImageOutlined,
-  MoreVertRounded,
-  PaletteOutlined,
+  ArchiveOutlined,
 } from "@material-ui/icons";
 import classes from "./Card.module.css";
 import CardModal from "../CardModal/CardModal";
-import { Modal } from "@material-ui/core";
 import DropdownPallete from "./DropdownPallete/DropdownPallete";
+import { useStateValue } from "../../../StateProvider";
+import { ACTIONS } from "../../../reducer";
+import SimpleSnackbar from "../SnackBar/SnackBar";
+import { Chip, Tooltip } from "@material-ui/core";
 
-export default function Card() {
+import ReminderPallete from "./Reminder/ReminderPallete";
+
+const svgFill = {
+  fill: "black",
+};
+
+export default function Card({ data }) {
+  const cardRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
+  const [selectNote, setSelectNote] = useState(false);
   const [clrs, setColors] = useState("");
+  const [initialState, dispatch] = useStateValue();
+  const [date, setDate] = useState();
+  console.log("card", data);
+  const archiveHandler = () => {
+    dispatch({ type: ACTIONS.ADD_TO_ARCHIVE, data });
+  };
 
   function showHandler() {
     setIsOpen(true);
   }
-  function hideHandler() {
-    setIsOpen(false);
+  function deleteHandler() {
+    dispatch({ type: ACTIONS.ADD_TO_TRASH, data });
   }
+
+  function handleDelete() {
+    setDate();
+    data.remin = date;
+  }
+
   return (
     <div
       className={classes.card}
-      style={{ background: clrs, borderColor: clrs !== "#fff" ? clrs : "#ccc" }}
-      onClick={showHandler}
+      ref={cardRef}
+      style={{
+        background: clrs,
+        borderColor: clrs !== "#fff" ? clrs : "#ccc",
+        border:
+          selectNote && initialState.allSelect.length > 0 && "2px solid black",
+      }}
     >
-      {/* <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={isOpen}
-        onClose={hideHandler}
-      >
-        <h1>hello</h1>
-      </Modal> */}
-      {/* {isOpen && (
+      {isOpen && (
         <CardModal
           open={isOpen}
+          data={data}
           setIsOpen={() => {
             setIsOpen(false);
-            console.log(isOpen);
           }}
         />
-      )} */}
+      )}
 
-      <button type="button" className={classes.check}>
-        <CheckCircle fontSize="small" />
+      <button
+        onClick={() => {
+          setSelectNote((prev) => !prev);
+          dispatch({ type: ACTIONS.ADD_TO_ALL_SELECT, id: data.id });
+        }}
+        type="button"
+        className={classes.check}
+      >
+        <CheckCircle
+          style={{
+            fill: selectNote && initialState.allSelect.length > 0 && "black",
+          }}
+          fontSize="small"
+        />
       </button>
       <div className={classes.notes}>
         <div className={classes.title}>
-          <h3>Title</h3>
+          <h3>{data.title}</h3>
         </div>
         <ul className={classes.ul}>
-          <li>hello</li>
-          <li>hello</li>
-          <li>hello</li>
-          <li>hello</li>
+          {data.lists &&
+            data.lists.map((val) => {
+              return <li>{val}</li>;
+            })}
         </ul>
       </div>
-
+      {date && (
+        <div className={classes.chip}>
+          {" "}
+          <Chip label={data.remin} onDelete={handleDelete} />
+        </div>
+      )}
       <div className={classes.hdiv}></div>
 
       <div className={classes.hide}>
         <div className={classes.svg}>
-          <button>
-            <AddAlertOutlined fontSize="small" />
-          </button>
-          <button>
-            <DropdownPallete setColors={setColors} />
-          </button>
-          <button>
-            <ImageOutlined fontSize="small" />
-          </button>
-          <button>
-            <ArchiveOutlined fontSize="small" />
-          </button>
-          <button>
-            <MoreVertRounded fontSize="small" />
-          </button>
-          <button>
-            <AspectRatio fontSize="small" />
-          </button>
+          <Tooltip title="Remind me">
+            {/* <button>
+              <AddAlertOutlined
+                style={svgFill}
+                className={classes.svgIcon}
+                fontSize="small"
+              />
+            </button> */}
+            <button>
+              <ReminderPallete data={data} setDate={setDate} />
+            </button>
+          </Tooltip>
+
+          <Tooltip title="Change color">
+            <button>
+              <DropdownPallete setColors={setColors} />
+            </button>
+          </Tooltip>
+
+          <Tooltip title="Image-Adder">
+            <button>
+              <ImageOutlined
+                style={svgFill}
+                className={classes.svgIcon}
+                fontSize="small"
+              />
+            </button>
+          </Tooltip>
+          <Tooltip title="Archive">
+            <button onClick={archiveHandler}>
+              <SimpleSnackbar Icon={ArchiveOutlined} note="Note Archived" />
+            </button>
+          </Tooltip>
+          <Tooltip title="Show big">
+            <button onClick={showHandler}>
+              <AspectRatio style={svgFill} fontSize="small" />
+            </button>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <button onClick={deleteHandler}>
+              <DeleteRounded style={svgFill} fontSize="small" />
+            </button>
+          </Tooltip>
         </div>
       </div>
     </div>

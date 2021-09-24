@@ -5,34 +5,39 @@ import {
   MoreVertRounded,
   PaletteOutlined,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
+import { ACTIONS } from "../../../reducer";
+import { useStateValue } from "../../../StateProvider";
 import classes from "./Form.module.css";
 
-function Form({ handler }) {
+function Form() {
   const [title, setTitle] = useState("");
-  const [textArea, setTextField] = useState("");
+  const desc = useRef();
+  const [initialState, dispatch] = useStateValue();
 
   function titleHandler(e) {
     setTitle(e.target.value);
   }
 
-  function descriptionHandler(e) {
-    setTextField(e.target.textContent);
-    console.log(textArea);
+  function submitHandler(e) {
+    e.preventDefault();
+    console.log(desc.current);
+    if (desc.current.innerText || title) {
+      if (desc.current.innerText.length !== 0 || title.length !== 0) {
+        dispatch({
+          type: ACTIONS.ADD_NOTES,
+          title,
+          lists: desc.current.innerText,
+        });
+      }
+    }
+    desc.current.innerText = "";
+    setTitle("");
   }
   return (
     <div className={classes.mf}>
-      <form
-        id="my-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handler(title, textArea);
-          setTitle("");
-          setTextField("");
-        }}
-        className={classes.form}
-      >
+      <form onSubmit={submitHandler} className={classes.form}>
         <div className={classes.title}>
           <input
             type="text"
@@ -46,26 +51,30 @@ function Form({ handler }) {
         </div>
         <span
           className={classes.textarea}
-          onChange={descriptionHandler}
           role="textbox"
-          value={textArea}
           contenteditable="true"
+          ref={desc}
         ></span>
-        <div className={classes.svg}>
-          <button>
-            <AddAlertOutlined fontSize="small" />
-          </button>
-          <button>
-            <PaletteOutlined fontSize="small" />
-          </button>
-          <button>
-            <ImageOutlined fontSize="small" />
-          </button>
-          <button>
-            <ArchiveOutlined fontSize="small" />
-          </button>
-          <button>
-            <MoreVertRounded fontSize="small" />
+        <div className={classes.finalBtn}>
+          <div className={classes.svg}>
+            <button>
+              <AddAlertOutlined fontSize="small" />
+            </button>
+            <button>
+              <PaletteOutlined fontSize="small" />
+            </button>
+            <button>
+              <ImageOutlined fontSize="small" />
+            </button>
+            <button>
+              <ArchiveOutlined fontSize="small" />
+            </button>
+            <button>
+              <MoreVertRounded fontSize="small" />
+            </button>
+          </div>
+          <button onClick={submitHandler} className="btn-notes">
+            AddNotes
           </button>
         </div>
       </form>

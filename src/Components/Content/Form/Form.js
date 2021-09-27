@@ -52,7 +52,7 @@ function Form() {
         <span
           className={classes.textarea}
           role="textbox"
-          contenteditable="true"
+          contentEditable="true"
           ref={desc}
         ></span>
         <div className={classes.finalBtn}>

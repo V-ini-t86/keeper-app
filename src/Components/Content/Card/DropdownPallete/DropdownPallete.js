@@ -34,6 +34,7 @@ function DropdownPallete({ setColors }) {
 
           return (
             <button
+              key={clrs.color}
               onClick={colorHandler}
               style={{ background: clrs.color, border: "none" }}
             ></button>

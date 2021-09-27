@@ -5,3 +5,10 @@
 .remindCard {
   margin: 10px;
 }
+.mason::-webkit-scrollbar {
+  display: none;
+}
+.noteCard {
+  margin: 10px;
+  z-index: 11;
+}

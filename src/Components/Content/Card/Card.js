@@ -3,7 +3,6 @@ import {
   AspectRatio,
   CheckCircle,
   DeleteRounded,
-  ImageOutlined,
   ArchiveOutlined,
 } from "@material-ui/icons";
 import classes from "./Card.module.css";
@@ -27,7 +26,6 @@ export default function Card({ data }) {
   const [clrs, setColors] = useState("");
   const [initialState, dispatch] = useStateValue();
   const [date, setDate] = useState();
-  console.log("card", data);
   const archiveHandler = () => {
     dispatch({ type: ACTIONS.ADD_TO_ARCHIVE, data });
   };
@@ -68,7 +66,11 @@ export default function Card({ data }) {
       <button
         onClick={() => {
           setSelectNote((prev) => !prev);
-          dispatch({ type: ACTIONS.ADD_TO_ALL_SELECT, id: data.id });
+          if (!selectNote) {
+            dispatch({ type: ACTIONS.ADD_TO_ALL_SELECT, id: data.id });
+          } else {
+            dispatch({ type: ACTIONS.REMOVE_FROM_SELECTED_NOTE, id: data.id });
+          }
         }}
         type="button"
         className={classes.check}
@@ -86,8 +88,8 @@ export default function Card({ data }) {
         </div>
         <ul className={classes.ul}>
           {data.lists &&
-            data.lists.map((val) => {
-              return <li>{val}</li>;
+            data.lists.map((val, i) => {
+              return <li key={i + 1}>{val}</li>;
             })}
         </ul>
       </div>
@@ -120,7 +122,7 @@ export default function Card({ data }) {
             </button>
           </Tooltip>
 
-          <Tooltip title="Image-Adder">
+          {/* <Tooltip title="Image-Adder">
             <button>
               <ImageOutlined
                 style={svgFill}
@@ -128,7 +130,7 @@ export default function Card({ data }) {
                 fontSize="small"
               />
             </button>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip title="Archive">
             <button onClick={archiveHandler}>
               <SimpleSnackbar Icon={ArchiveOutlined} note="Note Archived" />

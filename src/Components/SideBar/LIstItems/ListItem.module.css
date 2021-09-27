@@ -25,7 +25,7 @@
   padding-left: 0;
 }
 .link {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 .link > li {
@@ -34,15 +34,16 @@
   align-items: center;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .link > li:hover {
   background-color: #f1f3f4;
+  color: black;
 }
 .link li > svg {
-  width: 1.5em;
-  height: 1.5em;
+  width: 1em;
+  height: 1em;
   margin-right: 25px;
 }
 .linkR {

@@ -1,12 +1,7 @@
 import React from "react";
 import classes from "./Navbar.module.css";
-import {
-  Close,
-  AddAlertOutlined,
-  DeleteRounded,
-  ArchiveOutlined,
-} from "@material-ui/icons";
-import glogo from "./Images/gmaillogo.png";
+import { Close, DeleteRounded, ArchiveOutlined } from "@material-ui/icons";
+import logo from "./Images/download.jpg";
 import { useStateValue } from "../../StateProvider";
 import menu from "./Images/menu.png";
 import SearchBar from "./SearchBar/SearchBar";
@@ -87,7 +82,7 @@ function Navbar() {
             <button>
               <img src={menu} alt="menu" />
             </button>
-            <img src={glogo} alt="glogo" />
+            <img src={logo} alt="logo" />
           </div>
           <SearchBar />
           <div className={classes.list}>

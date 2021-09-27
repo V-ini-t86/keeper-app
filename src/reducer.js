@@ -14,6 +14,8 @@ export const ACTIONS = {
   REMOVE_FROM_SELECT: "removeFromSelect",
   ADD_ALL_TO_TRASH: "addAllToTrash",
   ADD_ALL_TO_ARCHIVE: "addAllToArchive",
+  MODAL_EDITABLE: "modalEditable",
+  REMOVE_FROM_SELECTED_NOTE: "removeFromSelectedNote",
 };
 
 function addNotes(title, lists) {
@@ -90,6 +92,24 @@ const reducer = (state, action) => {
       });
       state.archive = [...state.archive, ...addToArchive];
       console.log("archives", state.archive);
+      return { ...state };
+    case ACTIONS.MODAL_EDITABLE:
+      let mid = action.id;
+      let mTitle = action.title;
+      let mlist = action.lists;
+      mlist = mlist.split("\n");
+      console.log("modal", mid, mTitle, mlist);
+      const n = addNotes(mTitle, mlist);
+      state.note = state.note.filter((val) => {
+        return val.id !== mid;
+      });
+      state.note = [...state.note, n];
+      return { ...state };
+    case ACTIONS.REMOVE_FROM_SELECTED_NOTE:
+      let remId = action.id;
+      state.allSelect = state.allSelect.filter((val) => {
+        return val !== remId;
+      });
       return { ...state };
     default:
       return state;

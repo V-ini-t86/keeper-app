@@ -5,7 +5,7 @@
   padding: 0;
 }
 .card {
-  margin-top: 30px;
+  /* margin-top: 30px; */
   padding: 10px;
   border: 1px solid #ccc;
   width: 200px;
@@ -26,7 +26,7 @@
   display: none;
 }
 .hdiv {
-  height: 55px;
+  height: 50px;
 }
 .card:hover .hdiv {
   display: none;

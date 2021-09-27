@@ -1,42 +1,50 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import classes from "./CardModal.module.css";
 import CardContent from "./CardContent";
 import { ACTIONS } from "../../../reducer";
 import { useStateValue } from "../../../StateProvider";
 
 export default function CardModal({ open, setIsOpen, data }) {
-  // const [title, setTitle] = useState("");
-  // const desc = useRef();
-  // const [initialState, dispatch] = useStateValue();
+  const desc = useRef();
+  const titleRef = useRef();
+  const [initialState, dispatch] = useStateValue();
 
-  // function titleHandler(e) {
-  //   setTitle(e.target.value);
-  // }
-
-  // function submitHandler(e) {
-  //   e.preventDefault();
-  //   console.log(desc.current);
-  //   if (desc.current.innerText || title) {
-  //     if (desc.current.innerText.length !== 0 || title.length !== 0) {
-  //       // dispatch({
-  //       //   type: ACTIONS.ADD_NOTES,
-  //       //   title,
-  //       //   lists: desc.current.innerText,
-  //       // });
-  //     }
-  //   }
-  //   desc.current.innerText = "";
-  //   setTitle("");
-  // }
+  function submitHandler(e) {
+    e.preventDefault();
+    console.log(desc.current.innerText);
+    if (desc.current.innerText || titleRef.current.innerText) {
+      if (
+        desc.current.innerText.length !== 0 ||
+        titleRef.current.innerText.length !== 0
+      ) {
+        dispatch({
+          type: ACTIONS.MODAL_EDITABLE,
+          id: data.id,
+          title: titleRef.current.innerText,
+          lists: desc.current.innerText,
+        });
+      }
+    }
+  }
   return (
     <div>
       {open && (
-        <CardContent isOpen={setIsOpen}>
-          <h3 className={classes.modalH3} role="textbox" contenteditable="true">
+        <CardContent isOpen={setIsOpen} submit={submitHandler}>
+          <h3
+            className={classes.modalH3}
+            ref={titleRef}
+            role="textbox"
+            contenteditable="true"
+          >
             {data.title}
           </h3>
-          <ul className={classes.ul} role="textbox" contenteditable="true">
-            <li>Type something</li>
+          <ul
+            className={classes.ul}
+            ref={desc}
+            role="textbox"
+            contenteditable="true"
+          >
+            {!data.lists && <li>Type something</li>}
             {data.lists.map((val) => {
               return <li>{val}</li>;
             })}

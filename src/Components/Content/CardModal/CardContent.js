@@ -9,8 +9,10 @@ const MODAL_STYLES = {
   backgroundColor: "#fff",
   transform: "translate(-50%,-50%)",
   minWidth: "400px",
-  height: "auto",
+  // height: "auto",
   borderRadius: "7px",
+  maxHeight: "700px",
+  // minHeight: "700px",
 };
 const OVERLAY_STYLES = {
   position: "fixed",
@@ -22,11 +24,16 @@ const OVERLAY_STYLES = {
   opacity: 0.6,
   zIndex: 1000,
 };
-function CardContent({ children, isOpen }) {
+function CardContent({ children, isOpen, submit }) {
   const modal = useRef();
+
+  const submitHandler = (e) => {
+    submit(e);
+    isOpen(e);
+  };
   return ReactDOM.createPortal(
     <>
-      <div style={OVERLAY_STYLES} onClick={isOpen} />
+      <div style={OVERLAY_STYLES} onClick={submitHandler} />
       <div ref={modal} id="no" style={MODAL_STYLES}>
         {children}
       </div>

@@ -7,3 +7,8 @@
   /* border: 1px solid black; */
   padding-left: 25px;
 }
+.container {
+  margin-top: 100px;
+  margin-left: 260px; /* Same as the width of the sidenav */ /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}

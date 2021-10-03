@@ -13,6 +13,17 @@ work, etc.
 
 </center>
 
+## Functionality Added on this project
+* Add Notes Using a Form
+* Change color of the notes
+* Add timer to the notes
+* Add To Archive
+* Add To Trash
+* Delete all by trash
+* Adding all to archive
+* Open Cards By clicking on Aspect
+* Cards Are editable
+
 ## Packages used in this project:
 
 <center>

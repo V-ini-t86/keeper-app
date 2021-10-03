@@ -16,6 +16,8 @@ export const ACTIONS = {
   ADD_ALL_TO_ARCHIVE: "addAllToArchive",
   MODAL_EDITABLE: "modalEditable",
   REMOVE_FROM_SELECTED_NOTE: "removeFromSelectedNote",
+  REMOVE_FROM_WEB: "removeFromWeb",
+  UNARCHIVE_GOES_TO_NOTE: "unarchiveGoesToNote",
 };
 
 function addNotes(title, lists) {
@@ -40,6 +42,9 @@ const reducer = (state, action) => {
     case ACTIONS.ADD_TO_ARCHIVE:
       const data = action.data;
       const archive = [...state.archive, data];
+      state.note = state.note.filter((val) => {
+        return val.id !== data.id;
+      });
       state.archive = archive;
       return { ...state };
     case ACTIONS.ADD_TO_TRASH:
@@ -110,6 +115,19 @@ const reducer = (state, action) => {
       state.allSelect = state.allSelect.filter((val) => {
         return val !== remId;
       });
+      return { ...state };
+    case ACTIONS.REMOVE_FROM_WEB:
+      let remData = action.data;
+      state.trash = state.trash.filter((val) => {
+        return val.id !== remData.id;
+      });
+      return { ...state };
+    case ACTIONS.UNARCHIVE_GOES_TO_NOTE:
+      let unArchData = action.data;
+      state.archive = state.archive.filter((val) => {
+        return val.id !== unArchData.id;
+      });
+      state.note = [...state.note, unArchData];
       return { ...state };
     default:
       return state;

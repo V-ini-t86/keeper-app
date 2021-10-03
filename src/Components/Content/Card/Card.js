@@ -14,6 +14,7 @@ import SimpleSnackbar from "../SnackBar/SnackBar";
 import { Chip, Tooltip } from "@material-ui/core";
 
 import ReminderPallete from "./Reminder/ReminderPallete";
+import { useLocation } from "react-router";
 
 const svgFill = {
   fill: "black",
@@ -26,15 +27,24 @@ export default function Card({ data }) {
   const [clrs, setColors] = useState("");
   const [initialState, dispatch] = useStateValue();
   const [date, setDate] = useState();
+  const location = useLocation();
   const archiveHandler = () => {
-    dispatch({ type: ACTIONS.ADD_TO_ARCHIVE, data });
+    if (location.pathname === "/archive") {
+      dispatch({ type: ACTIONS.UNARCHIVE_GOES_TO_NOTE, data });
+    } else {
+      dispatch({ type: ACTIONS.ADD_TO_ARCHIVE, data });
+    }
   };
 
   function showHandler() {
     setIsOpen(true);
   }
   function deleteHandler() {
-    dispatch({ type: ACTIONS.ADD_TO_TRASH, data });
+    if (location.pathname === "/trash") {
+      dispatch({ type: ACTIONS.REMOVE_FROM_WEB, data });
+    } else {
+      dispatch({ type: ACTIONS.ADD_TO_TRASH, data });
+    }
   }
 
   function handleDelete() {
@@ -48,7 +58,7 @@ export default function Card({ data }) {
       ref={cardRef}
       style={{
         background: clrs,
-        borderColor: clrs !== "#fff" ? clrs : "#ccc",
+        borderColor: "#ccc",
         border:
           selectNote && initialState.allSelect.length > 0 && "2px solid black",
       }}
@@ -131,7 +141,9 @@ export default function Card({ data }) {
               />
             </button>
           </Tooltip> */}
-          <Tooltip title="Archive">
+          <Tooltip
+            title={location.pathname !== "/archive" ? "Archive" : "UnArchive"}
+          >
             <button onClick={archiveHandler}>
               <SimpleSnackbar Icon={ArchiveOutlined} note="Note Archived" />
             </button>

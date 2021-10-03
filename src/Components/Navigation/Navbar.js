@@ -18,7 +18,6 @@ import ReminderPallete from "../Content/Card/Reminder/ReminderPallete";
 function Navbar() {
   const [{ allSelect }, dispatch] = useStateValue();
   const { signIn, currentUser } = useAuth();
-  console.log(signIn);
 
   const loginHandler = () => {
     console.log("clikcked");

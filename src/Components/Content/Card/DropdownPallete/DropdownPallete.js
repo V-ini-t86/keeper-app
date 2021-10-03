@@ -29,7 +29,7 @@ function DropdownPallete({ setColors }) {
             setColors(clrs.color);
             clrs.arw = !clrs.arw;
 
-            e.target.style.border = "1px solid black";
+            // e.target.style.border = "1px solid black";
           }
 
           return (
